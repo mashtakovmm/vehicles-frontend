@@ -1,5 +1,6 @@
 import { useMemo } from "react"
 import { useGetAllCarsQuery } from "../../store/api/apiSlice"
+
 import { RootState } from "../../store/store"
 import { useSelector } from "react-redux"
 
@@ -9,33 +10,34 @@ import Sort from "../../components/Sort/Sort"
 import "./VehiclesPage.css"
 
 
-const Vehicles = () => {
+const VehiclesPage = () => {
 
-    const { data, isLoading } = useGetAllCarsQuery()
+    const { isLoading } = useGetAllCarsQuery()
+    const { cars } = useSelector((state:RootState) => state.cars)
     const { priceSort, yearSort } = useSelector((state: RootState) => state.sort)
 
     const sortedData = useMemo(() => {
-        if (!data) return [];
-    
-        return [...data].sort((a, b) => {
+        if (!cars) return [];
+
+        return [...cars].sort((a, b) => {
             if (priceSort) {
-                return b.price - a.price; 
+                return b.price - a.price;
             } else {
-                return a.price - b.price; 
+                return a.price - b.price;
             }
         }).sort((a, b) => {
             if (yearSort) {
-                return b.year - a.year; 
+                return b.year - a.year;
             } else {
-                return a.year - b.year; 
+                return a.year - b.year;
             }
         });
-    }, [data, priceSort, yearSort]);
+    }, [cars, priceSort, yearSort]);
 
 
 
     return (
-        <div>
+        <>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
@@ -43,14 +45,14 @@ const Vehicles = () => {
                     <Sort />
                     <div className="cards-container">
                         {sortedData?.map((car) =>
-                            <VehicleCard key={car.id} name={car.name} model={car.model} year={car.year} color={car.color} price={car.price}
+                            <VehicleCard key={car.id} id={car.id} name={car.name} model={car.model} year={car.year} color={car.color} price={car.price}
                                 lat={car.latitude} long={car.longitude} />
                         )}
                     </div>
                 </>
             )}
-        </div>
+        </>
     );
 }
 
-export default Vehicles
+export default VehiclesPage

@@ -7,8 +7,9 @@ import { store } from './store/store.ts'
 
 import './index.css'
 
-import Vehicles from './pages/VehiclesPage/VehiclesPage.tsx'
-import MapPage from './pages/MapPage.tsx'
+import VehiclesPage from './pages/VehiclesPage/VehiclesPage.tsx'
+import MapPage from './pages/MapPage/MapPage.tsx'
+import EditCardPage from './pages/EditCardPage/EditCardPage.tsx'
 
 const router = createBrowserRouter([
     {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Vehicles />
+                element: <VehiclesPage />
             },
             {
                 path: '/map',
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
                 element: <div>test</div>
             }
         ]
+    },
+    {
+        path: `/vehicles/:id`,
+        element: <EditCardPage />
     }
 ])
 

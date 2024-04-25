@@ -1,0 +1,67 @@
+.edit-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.edit-form {
+    gap: 10px;
+}
+
+.edit-subtitle {
+    flex: 20%;
+}
+
+.edit-value {
+    flex: 80%;
+}
+
+.input {
+    border: none;
+    border-bottom: 3px solid #241715;
+    background-color: transparent;
+    width: 100%;
+
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-card-container {
+    min-width: 500px;
+    min-height: 500px;
+}
+
+.edit-button {
+    width: 150px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid #241715;
+    background-color: #ca9ab6;
+    transition: 0.2s;
+    margin: 0;
+}
+
+.edit-button:hover {
+    background-color: #957186;
+    transition: 0.5s;
+}
+
+.edit-button:active {
+    background-color: #775a6b;
+    transition: 0.1s;
+}
+
+.tip {
+    color: rgba(0, 0, 0, 0.486);
+}
+
+.link {
+    width: inherit;
+    text-decoration: none;
+    height: 100%;
+}

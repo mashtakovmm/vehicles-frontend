@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { carData } from '../../types';
+import { carData } from '../../types/types';
 
 export const carsApiSlice = createApi({
     reducerPath: "carsApi",
@@ -10,8 +10,9 @@ export const carsApiSlice = createApi({
         }),
         getCar: builder.query({
             query: (id) => `vehicles/${id}`,
-        })
+        }),
     }),
+    
 });
 
 export const {useGetAllCarsQuery, useGetCarQuery} = carsApiSlice

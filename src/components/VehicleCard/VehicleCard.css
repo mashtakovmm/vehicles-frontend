@@ -103,3 +103,9 @@
     border: 2px solid black;
     border-radius: 2px;
 }
+
+.link {
+    width: inherit;
+    text-decoration: none;
+    height: 100%;
+}

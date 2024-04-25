@@ -1,12 +1,16 @@
 import { FC } from 'react'
-import { MdOutlineColorLens, MdOutlineLocationOn, MdAttachMoney } from "react-icons/md";
-import { MdEditNote, MdDeleteOutline  } from "react-icons/md";
+import { useDispatch } from 'react-redux';
+import { deleteCarByID } from '../../store/carsSlice/carSlice';
+import { Link } from 'react-router-dom';
+
+import { MdOutlineColorLens, MdOutlineLocationOn, MdAttachMoney, MdEditNote, MdDelete } from "react-icons/md";
 import Button from '../Button/Button';
 
 
 import "./VehicleCard.css"
 
 interface props {
+    id: number,
     name: string,
     model: string,
     year: number,
@@ -16,13 +20,19 @@ interface props {
     long: number
 }
 
-const VehicleCard: FC<props> = ({ name, model, year, color, price, lat, long }) => {
+const VehicleCard: FC<props> = ({ id, name, model, year, color, price, lat, long }) => {
+
+    const dispatch = useDispatch();
+
+    const useDeleteCar = (e: React.MouseEvent<HTMLButtonElement>) => {
+        dispatch((deleteCarByID(id)))
+    };
 
     return (
         <div className='card-container'>
             <div className='button-container'>
-                <Button className='card-button right-border-button' icon={MdEditNote} text='Edit'/>
-                <Button className='card-button' icon={MdDeleteOutline} text='Delete'/>
+                <Link className='link' to={`/vehicles/${id}`}><Button className='card-button right-border-button' icon={MdEditNote} text='Edit'/></Link>
+                <Button className='card-button' icon={MdDelete} text='Delete' onClick={useDeleteCar} />
             </div>
             <div className='card'>
                 <h2 className='h2'>
