@@ -12,7 +12,6 @@ const Navbar = () => {
             <nav className="nav">
                 <NavLink to='/' className="navlink"><Button icon={MdDirectionsCar} text="Cars" className="nav-button" /></NavLink>
                 <NavLink to='/map' className="navlink"> <Button icon={MdOutlineMap} text="Map" className="nav-button" /></NavLink>
-               
             </nav>
         </div>
     )

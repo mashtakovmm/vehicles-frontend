@@ -10,6 +10,7 @@
     align-items: center;
 
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4); 
+    position: fixed;
 }
 
 .logo {
@@ -41,6 +42,7 @@
     border-color: #703D57;
     border-width: 3px;
     transition: 0.5s;
+    color: #241715;
 }
 
 .nav-button:hover {

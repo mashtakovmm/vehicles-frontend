@@ -1,0 +1,19 @@
+.sort-button {
+    background-color: inherit;
+    border: solid 3px #241715;
+    border-radius: 10px;
+    text-transform: none;
+    width: 200px;
+    color: #241715;
+    transition: 0.2s;
+}
+
+.sort-button:hover {
+    background-color: #D9B8C4;
+    transition: 0.5s;
+}
+
+.sort-button:active {
+    background-color: #957186;
+    transition: 0.1s;
+}
