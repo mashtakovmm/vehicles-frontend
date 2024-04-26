@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         path: `/vehicles/:id`,
         element: <EditCardPage />
     }
-])
+], {basename: '/vehicles-frontend/'})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
