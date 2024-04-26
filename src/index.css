@@ -11,6 +11,10 @@
     background-color: #faf0f4;
 }
 
+div#root{
+    min-width: 100%;
+}
+
 body {
     margin: 0;
     display: flex;
