@@ -10,25 +10,33 @@ import { fromLonLat } from 'ol/proj';
 import Style from 'ol/style/Style';
 import Circle from 'ol/style/Circle';
 import Overlay from 'ol/Overlay';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RootState } from "../../store/store"
 import { useSelector } from "react-redux"
 import { useGetAllCarsQuery } from '../../store/api/apiSlice';
 
 import 'ol/ol.css';
 import './MapPage.css';
-import Fill from 'ol/style/Fill';
-import Stroke from 'ol/style/Stroke';
 
 interface CoordsPoint {
     latitude: number;
     longitude: number;
 }
 
+interface CarPointData {
+    id: number,
+    name: string,
+    model: string,
+    year: number
+}
+
 const MapPage = () => {
     const { isLoading } = useGetAllCarsQuery()
     const { cars } = useSelector((state: RootState) => state.cars)
+    const [carPointData, setCarPointData] = useState<CarPointData>();
 
     const overlayRef = useRef<HTMLDivElement>(null)
 
@@ -56,7 +64,13 @@ const MapPage = () => {
 
         const carFeatures = cars.map(car =>
             new Feature({
-                geometry: new Point(fromLonLat([car.longitude, car.latitude]))
+                geometry: new Point(fromLonLat([car.longitude, car.latitude])),
+                attributes: {
+                    id: car.id,
+                    name: car.name,
+                    model: car.model,
+                    year: car.year
+                }
             })
         );
 
@@ -68,13 +82,13 @@ const MapPage = () => {
             }),
             style: new Style({
                 image: new Circle({
-                    radius: 5, 
+                    radius: 5,
                     fill: new Fill({
-                        color: '#D9B8C4' 
+                        color: '#D9B8C4'
                     }),
                     stroke: new Stroke({
-                        color: '#241715', 
-                        width: 1 
+                        color: '#241715',
+                        width: 1
                     })
                 })
             })
@@ -88,18 +102,13 @@ const MapPage = () => {
         const avgCoords = GetAvgCoords(points);
 
         const overlay = new Overlay({
-            element: overlayRef.current!, 
-            positioning: 'bottom-center', 
-            stopEvent: true, 
-            offset: [0, -10], 
+            element: overlayRef.current!,
+            positioning: 'bottom-center',
+            stopEvent: true,
+            offset: [0, -8],
         });
 
-        if (cars.length > 0) {
-            const firstCarCoords = fromLonLat([cars[0].longitude, cars[0].latitude]);
-            overlay.setPosition(firstCarCoords);
-        }
-
-        const newMap = new Map({
+        const map = new Map({
             target: "map",
             layers: [osmLayer, pointsLayer],
             view: new View({
@@ -108,18 +117,34 @@ const MapPage = () => {
             }),
         });
 
-        newMap.addOverlay(overlay);
+        map.addOverlay(overlay);
 
+        map.on('pointermove', function (e) {
+            var hasFeature = false;
+            map.forEachFeatureAtPixel(e.pixel, (f) => {
+                var coordinate = e.coordinate;
+                var attributes = f.getProperties().attributes
+                setCarPointData({
+                    id: attributes.id,
+                    name: attributes.name,
+                    model: attributes.model,
+                    year: attributes.year
+                })
 
-        // Cleanup function
+                overlay.setPosition(coordinate);
+                hasFeature = true;
+            });
+            if (!hasFeature) {
+                overlay.setPosition(undefined);
+            }
+        });
+
         return () => {
-            if (newMap) {
-                newMap.setTarget(undefined);
+            if (map) {
+                map.setTarget(undefined);
             }
         };
     }, [isLoading, cars]);
-
-
 
     return (
         <div>
@@ -128,12 +153,10 @@ const MapPage = () => {
             ) : (
                 <>
                     <div id="map" className="map-container" />
-                    <div ref={overlayRef} className="">
-                        <p>Overlay Content</p>
+                    <div ref={overlayRef} className="overlay">
+                        <div className='overlay-data'>{`${carPointData?.name} ${carPointData?.model}, ${carPointData?.year}`}</div>
                     </div>
                 </>
-
-
             )}
 
         </div>
