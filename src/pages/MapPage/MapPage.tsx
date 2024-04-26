@@ -42,7 +42,7 @@ const MapPage = () => {
 
     const GetAvgCoords = (points: CoordsPoint[]): { latitude: number, longitude: number } => {
         if (points.length === 0) {
-            return { latitude: 0, longitude: 0 };
+            return { latitude: 56, longitude: 56 };
         }
 
         const totalLat = points.reduce((acc, point) => acc + point.latitude, 0);
