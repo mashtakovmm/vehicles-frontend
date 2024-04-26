@@ -54,7 +54,7 @@ const EditCardPage = () => {
         setEditedPrice(price)
     }
 
-    const SaveEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const SaveEdit = () => {
         dispatch(editCarByID({ id: Number(id), name: editedName, model: editedModel, price: editedPrice }));
 
     }

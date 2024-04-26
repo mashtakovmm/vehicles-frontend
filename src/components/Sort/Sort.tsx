@@ -11,11 +11,11 @@ const Sort = () => {
     const { priceSort, yearSort } = useSelector((state: RootState) => state.sort)
     const dispatch = useDispatch();
 
-    const togglePrice = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const togglePrice = () => {
         dispatch(togglePriceSort())
     };
 
-    const toggleYear = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const toggleYear = () => {
         dispatch(toggleYearSort())
     };
 

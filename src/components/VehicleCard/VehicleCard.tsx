@@ -24,7 +24,7 @@ const VehicleCard: FC<props> = ({ id, name, model, year, color, price, lat, long
 
     const dispatch = useDispatch();
 
-    const useDeleteCar = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const useDeleteCar = () => {
         dispatch((deleteCarByID(id)))
     };
 

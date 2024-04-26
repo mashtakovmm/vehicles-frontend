@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface SortState {
-    priceSort: boolean,
-    yearSort: boolean,
-}
+
 
 const initialState = {
     // true for ascending
